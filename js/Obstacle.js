@@ -10,34 +10,19 @@ class Obstacle {
     }
     drawObstacle() {
         const obsImg = new Image();
-        const obsImg1 = new Image();
-        const obsImg2 = new Image();
         obsImg.src = this.img;
-        obsImg1.src = this.img1;
-        obsImg2.src = this.img2;
-        ctx.drawImage(obsImg,20, this.y, 30, 30);
-        ctx.drawImage(obsImg,70, this.y, 30, 30);
-        ctx.drawImage(obsImg,120, this.y, 30, 30);
-        ctx.drawImage(obsImg,20, this.y, 30, 30);
-        ctx.drawImage(obsImg,70, this.y, 30, 30);
-        ctx.drawImage(obsImg,120, this.y, 30, 30);
-        ctx.drawImage(obsImg,20, this.y, 30, 30);
-        ctx.drawImage(obsImg,70, this.y, 30, 30);
-        ctx.drawImage(obsImg,120, this.y, 30, 30);
+        ctx.drawImage(obsImg,this.x, this.y, 50, 50);
+    
     }
     drawObstacle1(){
         const obsImg1 = new Image();
         obsImg1.src = this.img1;
-        ctx.drawImage(obsImg1,20, this.y, 30, 30);
-        ctx.drawImage(obsImg1,70, this.y, 30, 30);
-        ctx.drawImage(obsImg1,120, this.y, 30, 30);
-        ctx.drawImage(obsImg1,20, this.y, 30, 30);
-        ctx.drawImage(obsImg1,70, this.y, 30, 30);
-        ctx.drawImage(obsImg1,120, this.y, 30, 30);
-        ctx.drawImage(obsImg1,20, this.y, 30, 30);
-        ctx.drawImage(obsImg1,70, this.y, 30, 30);
-        ctx.drawImage(obsImg1,120, this.y, 30, 30);
-
+        ctx.drawImage(obsImg1,this.x, this.y, 50, 50);
+    }
+    drawObstacle2() {
+        const obsImg2 = new Image();
+        obsImg2.src = this.img2;
+        ctx.drawImage(obsImg2,this.x, this.y, 50, 50);
     }
 }
 
