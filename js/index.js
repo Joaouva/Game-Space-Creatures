@@ -14,6 +14,17 @@ document.onkeydown = (e) => {
     currentGame.Spaceship.movePlayer(whereToGo);
 }
 
+
+function resetGame () {
+    this.car = {},
+    this.obstacles = [];
+    this.shots = [];
+    this.score = 0;
+    document.getElementById('score').innerHTML = currentGame.score;
+    let shotsFrequency = 0;
+    
+}
+
 function startGame() {
     document.getElementById('game-board').style.display = 'block';
     //Instantiate a new game of the game class
@@ -25,28 +36,21 @@ function startGame() {
     updateCanvas();
 }
 
-function bulletHit(bullet,obstacles) {
-  /*
-for(let i = 0; i < currentGame.obstacles.length; i++) {
+function bulletHit(obstacle, bullet) {
+    return (bullet.x > obstacle.x - obstacle.width
+        && bullet.y + bullet.height > obstacle.y
+        && bullet.y < obstacle.y + obstacle.height
+        && bullet.x < obstacle.x + obstacle.width);
 
-
-  
-    return (currentGame.obstacles[i].x > bullet.x - bullet.width
-        && currentGame.obstacles[i].y + currentGame.obstacles[i].height > bullet.y
-        && currentGame.obstacles[i].y < bullet.y + bullet.height
-        && currentGame.obstacles[i].x < bullet.x + bullet.width);
-}
-*/
-
-    return (bullet.x > obstacles.x - obstacles.width
-        && bullet.y + bullet.height > obstacles.y
-        && bullet.y < obstacles.y + obstacles.height
-        && bullet.x < obstacles.x + obstacles.width);
-
-
+    /*    return (bullet.y + bullet.height > obstacle.y &&
+                bullet.x < obstacle.x + obstacle.width &&
+                bullet.x + bullet.with > obstacle.x &&
+                bullet.y < obstacle.y + obstacle.height);*/
+        
 }
 
-function detectCollision(obstacle) { 
+
+function detectCollision(obstacle) {;
     return (currentPlayer.x > obstacle.x - obstacle.width
         && currentPlayer.y + currentPlayer.height > obstacle.y
         && currentPlayer.y < obstacle.y + obstacle.height
@@ -55,14 +59,13 @@ function detectCollision(obstacle) {
  
 let shotsFrequency = 0;
 let obstaclesFrequency = 0;
-
 function updateCanvas() {
     ctx.clearRect(0, 0, 900, 600);
     currentGame.Spaceship.drawPlayer();
    
     //Draw bullets
     shotsFrequency++
-    if (shotsFrequency % 10 === 1) { //bullets speed
+    if (shotsFrequency % 30 === 1) { //bullets speed
         let newBullet = new Bullets(
             currentPlayer.x+25, 
             currentPlayer.y, 
@@ -95,15 +98,21 @@ function updateCanvas() {
     for(let i = 0; i<currentGame.obstacles.length; i++) {
         currentGame.obstacles[i].y += 0.5;
         currentGame.obstacles[i].drawObstacle();
-        
-        if (bulletHit(currentGame.shots[i],currentGame.obstacles[i])) {
-         console.log('hit')
-            // currentGame.obstacles.splice(i,1);
-         }
+    
+        for(let j = 0; j<currentGame.obstacles.length -1; j++){
+        for (let k = 0; k<currentGame.shots.length; k++) {
+            if (bulletHit(currentGame.obstacles[j],currentGame.shots[k])){
+                currentGame.obstacles.splice(j,1);
+                currentGame.shots.splice(k,1);
+                currentGame.score++;
+                document.getElementById('score').innerHTML = currentGame.score;
+            }
+        }
+        }
          
-
         if (detectCollision(currentGame.obstacles[i])) {
             alert('GAME OVER')
+            resetGame ()
             obstaclesFrequency = 0;
             currentGame.score = 0;
             document.getElementById('score').innerHTML = 0;
@@ -114,12 +123,9 @@ function updateCanvas() {
         // Obstacle moved outside the canvas
         if (currentGame.obstacles.length > 0 && currentGame.obstacles[i].y >= 600) {
             currentGame.obstacles.splice(i, 1);
-            currentGame.score++;
-            document.getElementById('score').innerHTML = currentGame.score;
         }
     }
     
-
     requestAnimationFrame(updateCanvas);
 }
 
