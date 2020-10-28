@@ -14,15 +14,22 @@ class Obstacle {
         ctx.drawImage(obsImg,this.x, this.y, 50, 50);
     
     }
+
+}
+
+class Obstacle2 extends Obstacle {
+    constructor(x, y, width, height) {
+        super (x, y, width, height)
+        this.x = x;
+        this.y = y;
+        this.height = 50;
+        this.width = 50;
+        this.img1 ='../images/asteroid.png'
+    }
     drawObstacle1(){
         const obsImg1 = new Image();
         obsImg1.src = this.img1;
-        ctx.drawImage(obsImg1,this.x, this.y, 50, 50);
-    }
-    drawObstacle2() {
-        const obsImg2 = new Image();
-        obsImg2.src = this.img2;
-        ctx.drawImage(obsImg2,this.x, this.y, 50, 50);
+        ctx.drawImage(obsImg1,this.x, this.y -10, 50, 50);
     }
 }
 

@@ -13,7 +13,27 @@ class Spaceship {
       player.src = this.img;
       ctx.drawImage(player, this.x, this.y, this.width, this.height);
     }
-    movePlayer(keyCode){
+    newPos() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+    }
+
+    left() {
+      return this.x;
+    }
+
+    right() {
+      return this.x + this.width;
+   }
+
+    top() {
+      return this.y;
+   }
+
+    bottom() {
+      return this.y + this.height;
+    }
+    /*movePlayer(keyCode){
       //console.log('x', this.x);
      // console.log('y', this.y);
       ctx.clearRect(this.x, this.y, this.width, this.height);
@@ -40,7 +60,7 @@ class Spaceship {
             this.y += 10;
           }
       }
-    }
+    }*/
   }
 
   

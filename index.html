@@ -7,15 +7,22 @@
     <link rel="stylesheet" href="styles/style.css" />
 </head>
 <body>
+  <div id="score-div">
+    <p>Score: <span id="score"> 0 </span></p>
+  </div>
   <div class='container'>
   <div id="game-board">
     <canvas id="the-canvas" width="900" height="600"></canvas>
   </div>
     <div class="game-intro">
-        <button id="start-button">StartGame</button>
-        <div id="score-div">
-          <p>Score: <span id="score"> 0 </span></p>
-        </div>
+      <div id="game-welcome" >
+        <img id="welcome-image" src="../images/StarsCanvas.png" width="900" height="600" src="" alt="">
+    </div>
+    <div id="bye-message" >
+      <img id="game-over" src="images/gameover.png" width="900" height="600" alt="welcome">
+    </div>
+        <button id="start-button">START</button>
+       
       </div>
       </div>
       <script src="js/spaceship.js"></script>

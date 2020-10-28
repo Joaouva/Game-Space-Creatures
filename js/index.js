@@ -3,16 +3,53 @@ let currentPlayer;
 
 
 document.getElementById('game-board').style.display = 'none';
+document.getElementById('game-over').style.display = 'none';
+document.getElementById('welcome-image').style.display = 'inline';
 const myCanvas = document.getElementById('the-canvas');
 const ctx = myCanvas.getContext('2d');
 document.getElementById('start-button').onclick = () => {
     startGame();
 }
 
-document.onkeydown = (e) => {
+/*document.onkeydown = (e) => {
     let whereToGo = e.keyCode;
     currentGame.Spaceship.movePlayer(whereToGo);
+}*/
+
+
+function checkBoundaries () {
+        if (currentPlayer.x >= 820) {
+        currentPlayer.x = 819;
+        currentPlayer.speedX = 0;
+        } 
+        else if (currentPlayer.x <= 20) {
+        currentPlayer.x = 21;
+        currentPlayer.speedX = 0;
+        } else if (currentPlayer.y <= 20) {
+        currentPlayer.y = 21;
+        currentPlayer.speedY = 0;
+        } else if (currentPlayer.y >= 520) {
+        currentPlayer.y = 519;
+        currentPlayer.speedY = 0;
+        }
 }
+
+document.addEventListener ('keydown', e => {
+    switch (e.keyCode) {
+        case 38:
+            currentPlayer.speedY -= 1;
+            break;
+        case 40:    
+            currentPlayer.speedY += 1;
+            break;
+        case 37:
+            currentPlayer.speedX -= 1;
+            break;
+        case 39:
+            currentPlayer.speedX += 1;
+            break; 
+    }
+});
 
 
 function resetGame () {
@@ -21,14 +58,18 @@ function resetGame () {
     this.shots = [];
     this.score = 0;
     document.getElementById('score').innerHTML = currentGame.score;
-    let shotsFrequency = 0;
-    
+    document.getElementById('game-over').style.display = 'inline';
 }
 
 function startGame() {
     document.getElementById('game-board').style.display = 'block';
+    document.getElementById('game-welcome').style.display = 'none';
+    document.getElementById('game-over').style.display = 'none';
     //Instantiate a new game of the game class
     currentGame = new Game();
+    if (!currentGame.gameRunning) {
+    currentGame.gameRunning = true;
+    }
     //Instantiate a new car
     currentPlayer = new Spaceship();
     currentGame.Spaceship = currentPlayer;
@@ -59,30 +100,41 @@ function detectCollision(obstacle) {;
  
 let shotsFrequency = 0;
 let obstaclesFrequency = 0;
+let obstacles2Frequency = 0;
+
+
 function updateCanvas() {
     ctx.clearRect(0, 0, 900, 600);
     currentGame.Spaceship.drawPlayer();
+    currentPlayer.newPos();
+    checkBoundaries ();
+
    
     //Draw bullets
     shotsFrequency++
-    if (shotsFrequency % 30 === 1) { //bullets speed
+    if (shotsFrequency % 10 === 1) { //bullets speed
         let newBullet = new Bullets(
             currentPlayer.x+25, 
             currentPlayer.y, 
-            5, 
-            5, 20);
+            10, 
+            10, 20);
         currentGame.shots.push(newBullet);
+
       //  console.log(currentGame.shots);
         
     }
     for(let i = 0; i<currentGame.shots.length; i++) { 
        currentGame.shots[i].y -= 10;
        currentGame.shots[i].drawBullet();
+       if (currentGame.shots[i].y < 0) {
+        currentGame.shots.splice(i,1);
+       }
     }
 
+    //Draw an obstacle
     obstaclesFrequency++;
     if (obstaclesFrequency % 100 === 0) {
-        //Draw an obstacle
+        
         let randomObstacleX = Math.floor(Math.random() * 720);
         let randomObstacleY = 0;
         let newObstacle = new Obstacle(
@@ -92,15 +144,46 @@ function updateCanvas() {
             50);
         currentGame.obstacles.push(newObstacle);
         
-
-       // console.log(currentGame.obstacles);
     }
-    for(let i = 0; i<currentGame.obstacles.length; i++) {
-        currentGame.obstacles[i].y += 0.5;
-        currentGame.obstacles[i].drawObstacle();
+
+if (currentGame.obstacles.length > 0) {
+    for(let h = 0; h<currentGame.obstacles.length; h++) {
+        currentGame.obstacles[h].y += 0.5;
+        currentGame.obstacles[h].drawObstacle();
+        
+        if (currentGame.obstacles[h].y > 520) {
+        currentGame.obstacles.splice(h,1);
+           }
+
+
+        //draw obstacle 2
+        if (currentGame.score > 3) {
+            obstacles2Frequency++;
+            if (obstacles2Frequency % 90 === 0) {
+        
+            let randomObstacle2X = Math.floor(Math.random() * 800);
+            let randomObstacle2Y = 0;
+            let newObstacle2 = new Obstacle2(
+                randomObstacle2X, 
+                randomObstacle2Y, 
+                50, 
+                50);
+            currentGame.obstacles2.push(newObstacle2);
+         }}
+
+        for(let i = 0; i<currentGame.obstacles2.length; i++) {
+        currentGame.obstacles2[i].y += 0.5;
+        currentGame.obstacles2[i].drawObstacle1();
+
+        if (currentGame.obstacles2[i].y > 520) {
+            currentGame.obstacles2.splice(i,1);
+               }
+    
+    }
     
         for(let j = 0; j<currentGame.obstacles.length -1; j++){
-        for (let k = 0; k<currentGame.shots.length; k++) {
+        for (let k = 0; k<currentGame.shots.length -1; k++) {
+            
             if (bulletHit(currentGame.obstacles[j],currentGame.shots[k])){
                 currentGame.obstacles.splice(j,1);
                 currentGame.shots.splice(k,1);
@@ -110,8 +193,8 @@ function updateCanvas() {
         }
         }
          
-        if (detectCollision(currentGame.obstacles[i])) {
-            alert('GAME OVER')
+        if (detectCollision(currentGame.obstacles[h])) {
+            currentGame.gameRunning = false;
             resetGame ()
             obstaclesFrequency = 0;
             currentGame.score = 0;
@@ -119,14 +202,52 @@ function updateCanvas() {
             currentGame.obstacles = [];
             document.getElementById('game-board').style.display = 'none';
         }
-        
-        // Obstacle moved outside the canvas
-        if (currentGame.obstacles.length > 0 && currentGame.obstacles[i].y >= 600) {
-            currentGame.obstacles.splice(i, 1);
+
+    if (currentGame.obstacles2.length > 0) {
+       for (let l = 0; l<currentGame.obstacles2.length -1; l++) {
+        if (detectCollision(currentGame.obstacles2[l])) {
+            currentGame.gameRunning = false;
+            resetGame ()
+            obstacles2Frequency = 0;
+            currentGame.score = 0;
+            document.getElementById('score').innerHTML = 0;
+            currentGame.obstacles2 = [];
+            document.getElementById('game-board').style.display = 'none';
+        }
+       }
+
+       for(let j = 0; j<currentGame.obstacles2.length -1; j++){
+        for (let k = 0; k<currentGame.shots.length -1; k++) {
+            
+            if (bulletHit(currentGame.obstacles2[j],currentGame.shots[k])){
+                currentGame.obstacles2.splice(j,1);
+                currentGame.shots.splice(k,1);
+                currentGame.score++;
+                document.getElementById('score').innerHTML = currentGame.score;
+            }
+        }
         }
     }
+
     
+        
+        // Obstacle moved outside the canvas
+        if (currentGame.obstacles.length > 0 && currentGame.obstacles[h].y >= 600) {
+            currentGame.obstacles.splice(h, 1);
+        }
+    }
+}
+
+if (currentGame.score > 10) {
+    document.getElementById('game-board').style.display = 'none';
+    document.getElementById('welcome-image').style.display = 'inline';
+    document.getElementById('game-board').style.display = 'inline';
+    document.getElementById('welcome-image').style.display = 'none';
+
+}
+    if (currentGame.gameRunning) { 
     requestAnimationFrame(updateCanvas);
+    }
 }
 
 
