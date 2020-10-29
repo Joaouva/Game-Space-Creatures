@@ -6,7 +6,7 @@ class Spaceship {
       this.height = 80;
       this.speedX = 0;
       this.speedY = 0;
-      this.img = '/images/Spaceship.png';
+      this.img = './images/Spaceship.png';
     }
     drawPlayer(){
       const player = new Image();
