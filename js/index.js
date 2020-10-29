@@ -1,6 +1,21 @@
 let currentGame;
 let currentPlayer;
 
+const fireSound = new Audio ()
+fireSound.src = "../sounds/Shoot.mp3";
+
+const explosionSound = new Audio ()
+explosionSound.src = "../sounds/siclone_explosion.wav";
+
+const gameOverSound = new Audio ()
+gameOverSound.src = "../sounds/gameover.mp3";
+
+const gameIntroSound = new Audio ()
+gameIntroSound.src = "../sounds/";
+
+const levelUpSound = new Audio ()
+levelUpSound.src = "../sounds/levelUp.mp3";
+
 document.getElementById('game-board').style.display = 'none';
 document.getElementById('game-over').style.display = 'none';
 document.getElementById('game-over-score').style.display = 'none';
@@ -44,6 +59,7 @@ function levelUp () {
     if (currentGame.score > 3 && currentGame.score < 5) {
         document.getElementById('messages').style.display = 'block';
         setTimeout(clearMessages, 5000);
+        levelUpSound.play()
      //   backgroundImage.draw ();
      //   backgroundImage.move ();
     }
@@ -120,6 +136,7 @@ function resetGame () {
     this.car = {},
     this.obstacles = [];
     this.shots = [];
+    gameOverSound.play();
     document.getElementById('game-board').style.display = 'inline';
     document.getElementById('score').innerHTML = currentGame.score;
     document.getElementById('score').style.display = 'none';
@@ -153,7 +170,7 @@ function bulletHit(obstacle, bullet) {
         && bullet.y + bullet.height > obstacle.y
         && bullet.y < obstacle.y + 100
         && bullet.x < obstacle.x + 100);
-
+        
     /*    return (bullet.y + bullet.height > obstacle.y &&
                 bullet.x < obstacle.x + obstacle.width &&
                 bullet.x + bullet.with > obstacle.x &&
@@ -191,6 +208,7 @@ function updateCanvas() {
             10, 
             10);
         currentGame.shots.push(newBullet);
+        fireSound.play();
 
       //  console.log(currentGame.shots);
         
@@ -302,6 +320,7 @@ if (currentGame.obstacles.length > 0) {
                 levelUp ()
                 levelUp1 ()  
                 document.getElementById('score').innerHTML = currentGame.score;
+                explosionSound.play();
             }
         }
         }
@@ -311,6 +330,7 @@ if (currentGame.obstacles.length > 0) {
             resetGame ()
             obstaclesFrequency = 0;
             currentGame.obstacles = [];
+            explosionSound.play();
             
         }
 
@@ -321,6 +341,7 @@ if (currentGame.obstacles.length > 0) {
             resetGame ()
             obstacles2Frequency = 0;
             currentGame.obstacles2 = [];
+            explosionSound.play();
             
         }
        }
@@ -334,6 +355,7 @@ if (currentGame.obstacles.length > 0) {
                 currentGame.score++;
                 levelUp ()
                 levelUp1 () 
+                explosionSound.play();
             }
         }
         }
@@ -347,7 +369,7 @@ if (currentGame.obstacles.length > 0) {
              resetGame ()
              obstacles3Frequency = 0;
              currentGame.obstacles3 = [];
-             
+             explosionSound.play();
          }
         }
  
@@ -358,7 +380,8 @@ if (currentGame.obstacles.length > 0) {
                  currentGame.obstacles3.splice(j,1);
                  currentGame.shots.splice(k,1);
                  currentGame.score++;
-                 levelUp () 
+                 levelUp ()
+                 explosionSound.play(); 
              }
          }
          }

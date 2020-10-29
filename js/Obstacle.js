@@ -5,7 +5,6 @@ class Obstacle {
         this.width = width;
         this.height = height;
         this.img = './images/alienspaceship.png';
-        this.img1 ='./images/alienblue.png'
     }
     drawObstacle() {
         const obsImg = new Image();
@@ -40,7 +39,7 @@ class Obstacle3 extends Obstacle {
         this.y = y;
         this.height = 50;
         this.width = 50;
-        this.img1 ='../images/alienblue.png';
+        this.img1 ='./images/alienblue.png';
     }
     drawObstacle2(){
         const obsImg1 = new Image();
