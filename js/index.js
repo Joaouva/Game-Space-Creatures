@@ -16,11 +16,7 @@ document.getElementById('start-button').onclick = () => {
     startGame();
 }
 document.getElementById('restart-button').onclick = () => {
-    if (currentGame.gameRunning=true){
-        return currentGame.gameRunning = false
-        } else if (currentGame.gameRunning = false) {
-        return currentGame.gameRunning = true
-        }
+   currentGame.gameRunning = !currentGame.gameRunning;
 }
 
 /*
@@ -118,7 +114,7 @@ function startGame() {
     document.getElementById('score').style.display = 'inline';
     //Instantiate a new game of the game class
     currentGame = new Game();
-    currentGame.gameRunning = true;
+    currentGame.gameRunning === true;
     //Instantiate a new car
     currentPlayer = new Spaceship();
     currentGame.Spaceship = currentPlayer;
