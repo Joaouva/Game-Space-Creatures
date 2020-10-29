@@ -18,21 +18,21 @@ document.getElementById('restart-button').onclick = () => {
 
 /*
 const image = new Image ()
-image.src = "../images/StarsCanvas.png"
+image.src = document.getElementById('game-board').style.display
 const backgroundImage = {
     image: image,
-    x: 0,
-    speed: -1,
+    x: 20,
+    speed: 50,
     move: function() {
         this.x += this.speed;
-        this.x %= myCanvas.width;
+        this.x %= 1200;
     },
     draw: function () {
-        ctx.drawImage (this.image, this.x, 0);
-        ctx.drawImage(this.image, this.x + myCanvas.width, 0);
+        ctx.drawImage (this.image, this.x, 0, myCanvas.width, myCanvas.height);
+        ctx.drawImage(this.image, this.x, 0, myCanvas.width, myCanvas.height);
     }
 }
-*/
+
 
 
 /*document.onkeydown = (e) => {
@@ -41,11 +41,11 @@ const backgroundImage = {
 }*/
 
 function levelUp () {
-    if (currentGame.score > 3 && currentGame.score < 5) {
+    if (currentGame.score > 3 && currentGame.score < 20) {
         document.getElementById('messages').style.display = 'block';
         setTimeout(clearMessages, 5000);
-       // backgroundImage.move ();
-        //backgroundImage.draw ();
+     //   backgroundImage.draw ();
+     //   backgroundImage.move ();
     }
 }
 
@@ -156,12 +156,12 @@ function updateCanvas() {
    
     //Draw bullets
     shotsFrequency++
-    if (shotsFrequency % 10 === 1) { //bullets speed
+    if (shotsFrequency % 20 === 1) { //bullets speed
         let newBullet = new Bullets(
             currentPlayer.x+25, 
             currentPlayer.y, 
             10, 
-            10, 20);
+            10);
         currentGame.shots.push(newBullet);
 
       //  console.log(currentGame.shots);
@@ -177,7 +177,7 @@ function updateCanvas() {
 
     //Draw an obstacle
     obstaclesFrequency++;
-    if (obstaclesFrequency % 100 === 0) {
+    if (obstaclesFrequency % 100 === 1) {
         
         let randomObstacleX = Math.floor(Math.random() * 720);
         let randomObstacleY = 0;
@@ -191,7 +191,7 @@ function updateCanvas() {
     }
 
 if (currentGame.obstacles.length > 0) {
-    for(let h = 0; h<currentGame.obstacles.length; h++) {
+    for(let h = 0; h<=currentGame.obstacles.length -1; h++) {
         currentGame.obstacles[h].y += 0.5;
         currentGame.obstacles[h].drawObstacle();
         
@@ -203,7 +203,7 @@ if (currentGame.obstacles.length > 0) {
         //draw obstacle 2
         if (currentGame.score > 3) {
             obstacles2Frequency++;
-            if (obstacles2Frequency % 90 === 0) {
+            if (obstacles2Frequency % 90 === 1) {
         
             let randomObstacle2X = Math.floor(Math.random() * 800);
             let randomObstacle2Y = 0;
@@ -215,7 +215,7 @@ if (currentGame.obstacles.length > 0) {
             currentGame.obstacles2.push(newObstacle2);
          }}
 
-        for(let i = 0; i<currentGame.obstacles2.length; i++) {
+        for(let i = 0; i<=currentGame.obstacles2.length -1; i++) {
         currentGame.obstacles2[i].y += 0.5;
         currentGame.obstacles2[i].drawObstacle1();
 
@@ -226,7 +226,7 @@ if (currentGame.obstacles.length > 0) {
     }
     
         for(let j = 0; j<currentGame.obstacles.length -1; j++){
-        for (let k = 0; k<currentGame.shots.length -1; k++) {
+        for (let k = 0; k<currentGame.shots.length; k++) {
             
             if (bulletHit(currentGame.obstacles[j],currentGame.shots[k])){
                 currentGame.obstacles.splice(j,1);
@@ -258,7 +258,7 @@ if (currentGame.obstacles.length > 0) {
        }
 
        for(let j = 0; j<currentGame.obstacles2.length -1; j++){
-        for (let k = 0; k<currentGame.shots.length -1; k++) {
+        for (let k = 0; k<currentGame.shots.length; k++) {
             
             if (bulletHit(currentGame.obstacles2[j],currentGame.shots[k])){
                 currentGame.obstacles2.splice(j,1);
