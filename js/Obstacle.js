@@ -10,7 +10,6 @@ class Obstacle {
         const obsImg = new Image();
         obsImg.src = this.img;
         ctx.drawImage(obsImg,this.x, this.y, 50, 50);
-    
     }
 
 }

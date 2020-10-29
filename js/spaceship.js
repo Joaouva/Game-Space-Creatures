@@ -33,6 +33,8 @@ class Spaceship {
     bottom() {
       return this.y + this.height;
     }
+
+    
     /*movePlayer(keyCode){
       //console.log('x', this.x);
      // console.log('y', this.y);

@@ -47,6 +47,9 @@ const backgroundImage = {
         ctx.drawImage(this.image, this.x, 0, myCanvas.width, myCanvas.height);
     }
 }
+
+
+
 /*document.onkeydown = (e) => {
     let whereToGo = e.keyCode;
     currentGame.Spaceship.movePlayer(whereToGo);
@@ -96,38 +99,38 @@ function checkBoundaries () {
 document.addEventListener ('keydown', e => {
     switch (e.keyCode) {
         case 38:
-            currentPlayer.speedY -= 0.8;
+            currentPlayer.speedY -= 0.5;
             break;
         case 40:    
-            currentPlayer.speedY += 0.8;
+            currentPlayer.speedY += 0.5;
             break;
         case 37:
-            currentPlayer.speedX -= 0.8;
+            currentPlayer.speedX -= 0.5;
             break;
         case 39:
-            currentPlayer.speedX += 0.8;
+            currentPlayer.speedX += 0.5;
             break; 
     }
 });
 
-
+/*
 document.addEventListener ('keyup', e => {
     switch (e.keyCode) {
         case 38:
-            currentPlayer.speedY += 0.8;
+            currentPlayer.speedY = 0;
             break;
         case 40:    
-            currentPlayer.speedY -= 0.8;
+            currentPlayer.speedY = 0;
             break;
         case 37:
-            currentPlayer.speedX += 0.8;
+            currentPlayer.speedX = 0;
             break;
         case 39:
-            currentPlayer.speedX -= 0.8;
+            currentPlayer.speedX = 0;
             break; 
     }
 });
-
+*/
 
 function resetGame () {
     this.car = {},
@@ -166,11 +169,12 @@ function startGame() {
 function bulletHit(obstacle, bullet) {
     return (bullet.x > obstacle.x - obstacle.width
         && bullet.y + bullet.height > obstacle.y
-        && bullet.y < obstacle.y + obstacle.height)  
-}
-        
+        && bullet.y < obstacle.y + obstacle.height)
 
-function detectCollision(obstacle) {;
+}
+
+
+function detectCollision(obstacle) {
     return (currentPlayer.x > obstacle.x - obstacle.width
         && currentPlayer.y + currentPlayer.height > obstacle.y
         && currentPlayer.y < obstacle.y + obstacle.height
@@ -192,7 +196,7 @@ function updateCanvas() {
    
     //Draw bullets
     shotsFrequency++
-    if (shotsFrequency % 20 === 1) { //bullets speed
+    if (shotsFrequency % 20 === 0) { //bullets speed
         let newBullet = new Bullets(
             currentPlayer.x+25, 
             currentPlayer.y, 
@@ -205,7 +209,7 @@ function updateCanvas() {
         
     }
     for(let i = 0; i<currentGame.shots.length; i++) { 
-       currentGame.shots[i].y -= 1.5;
+       currentGame.shots[i].y -= 2;
        currentGame.shots[i].drawBullet();
        if (currentGame.shots[i].y < 0) {
         currentGame.shots.splice(i,1);
@@ -214,7 +218,7 @@ function updateCanvas() {
 
     //Draw an obstacle
     obstaclesFrequency++;
-    if (obstaclesFrequency % 100 === 1) {
+    if (obstaclesFrequency % 100 === 0) {
         
         let randomObstacleX = Math.floor(Math.random() * 720);
         let randomObstacleY = 0;
@@ -229,7 +233,7 @@ function updateCanvas() {
 
 if (currentGame.obstacles.length > 0) {
     for(let h = 0; h<=currentGame.obstacles.length -1; h++) {
-        currentGame.obstacles[h].y += 0.3;
+        currentGame.obstacles[h].y += 0.5;
         currentGame.obstacles[h].drawObstacle();
         
         if (currentGame.obstacles[h].y > 520) {
@@ -244,7 +248,7 @@ if (currentGame.obstacles.length > 0) {
         //draw obstacle 2
         if (currentGame.score > 3) {
             obstacles2Frequency++;
-            if (obstacles2Frequency % 80 === 1) {
+            if (obstacles2Frequency % 200 === 0) {
         
             let randomObstacle2X = Math.floor(Math.random() * 800);
             let randomObstacle2Y = 0;
@@ -275,7 +279,7 @@ if (currentGame.obstacles.length > 0) {
         //draw obstacle 3
         if (currentGame.score > 10) {
             obstacles3Frequency++;
-            if (obstacles3Frequency % 80 === 1) {
+            if (obstacles3Frequency % 100 === 0) {
         
             let randomObstacle3X = Math.floor(Math.random() * 800);
             let randomObstacle3Y = 0;
@@ -391,6 +395,7 @@ if (currentGame.obstacles.length > 0) {
     requestAnimationFrame(updateCanvas);
     }
 }
+
 
 
 
