@@ -44,7 +44,6 @@ function levelUp () {
     if (currentGame.score > 3 && currentGame.score < 5) {
         document.getElementById('messages').style.display = 'block';
         setTimeout(clearMessages, 5000);
-        console.log('teste');
        // backgroundImage.move ();
         //backgroundImage.draw ();
     }
