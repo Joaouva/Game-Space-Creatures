@@ -4,9 +4,9 @@ class Obstacle {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.img = '../images/alienspaceship.png';
-        this.img1 ='../images/alienblue.png'
-        this.img2 ='../images/asteroid.png'
+        this.img = './images/alienspaceship.png';
+        this.img1 ='./images/alienblue.png'
+        this.img2 ='./images/asteroid.png'
     }
     drawObstacle() {
         const obsImg = new Image();
