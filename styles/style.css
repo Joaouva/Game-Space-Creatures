@@ -1,15 +1,58 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
 body {
   padding: 0;
   text-align: center;
+  background: rgb(255,255,255);
+background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(164,164,164,1) 100%);  
 }
 
-
+#score-div {
+  display: flex;
+  align-items: stretch;
+  padding-left: 55%;
+  padding-right: 50%;
+}
 #score-div p{
-  font-size: 40px;
+  font-size: 15px;
   text-shadow: grey;
   margin-bottom: 0px;
   margin-top: 10px;
+  margin-left: 200px;
+  margin-top: 20px;
+  font-family: 'Press Start 2P', cursive;
+  color: black;
+  background-color:yellow;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  
 
+}
+
+#game-welcome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#game-welcome h1{
+position: absolute;
+align-items: center;
+color: yellow;
+font-weight: 200;
+font-size: 80px;
+font-family: 'Press Start 2P', cursive;
+}
+
+#game-welcome p{
+  position: absolute;
+  margin-top: 150px;
+  color: white;
+  font-family: 'Press Start 2P', cursive;
 }
 
 .game-intro p {
@@ -17,32 +60,58 @@ body {
   font-family: "Verdana"
 }
 
-.logo-img {
-  width: 350px;
-}
-
 .arrows-img {
   width: 150px;
+}
+
+#control-keys {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#control-keys p{
+ position: absolute;
+ padding-top: 160px;
+ padding-left: 25px;
+ 
+}
+
+#instructions {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  
 }
 
 body button {
   font-size: 30px;
   color: #e7e7e7;
-  background-image: -webkit-linear-gradient(top, red, red); 
-  background-image: -moz-linear-gradient(top, red, red); 
-  background-image: -ms-linear-gradient(top, red, red); 
-  background-image: -o-linear-gradient(top, red, red); 
+  background-image: -webkit-linear-gradient(top, blue, blue); 
+  background-image: -moz-linear-gradient(top, blue, blue); 
+  background-image: -ms-linear-gradient(top, blue, blue); 
+  background-image: -o-linear-gradient(top, blue, blue); 
   margin: 36px;
   outline: none;
   width: 144px;
   height: 144px;
-  position: relative;
   text-align: center;
   line-height: 144px;
   border-radius: 50%;
   box-shadow: 0px 10px 10px #aaa, inset 0px 2px 3px #fff;
 }
 
+#restart-button {
+  background-image: -webkit-linear-gradient(top, black, black); 
+  background-image: -moz-linear-gradient(top, black, black); 
+  background-image: -ms-linear-gradient(top, black, black); 
+  background-image: -o-linear-gradient(top, black, black); 
+}
+
+#arrows {
+  width: 200px;
+  margin: 36px;
+}
 
 #the-canvas {
   background-image: url(../images/StarsCanvas.png);
@@ -53,10 +122,62 @@ body button {
       -khtml-box-shadow: 10px 10px 5px grey;
 }
 
-.welcome-image {
+#welcome-image {
   background-size: cover;
+  box-shadow: 10px 10px 5px grey;
+      -moz-box-shadow: 10px 10px 5px grey;
+      -webkit-box-shadow: 10px 10px 5px grey;
+      -khtml-box-shadow: 10px 10px 5px grey;
 }
 
-.game-over {
-background-size: cover;
+
+#messages {
+  display: flex;
+  align-items: stretch;
+  padding-left: 55%;
+  padding-right: 50%;
+}
+
+#messages h1{
+  font-size: 30px;
+  text-shadow: grey;
+  margin-top: -200px;
+  margin-left: -240px;
+  font-family: 'Press Start 2P', cursive;
+  color: yellow;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
+
+#bye-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
+
+#bye-message h1{
+  position: absolute;
+  display: flex;
+  color: yellow;
+  font-weight: 200;
+  font-size: 80px;
+  font-family: 'Press Start 2P', cursive;
+  margin-left: 1500px;
+  margin-bottom: 800px;
+  height: 50px;
+
+}
+
+#bye-message p{
+  position: absolute;
+  display: flex;
+  color: white;
+  font-family: 'Press Start 2P', cursive;
+  margin-left: 1500px;
+  margin-bottom: 300px;
+  width: 300px;
+  font-weight: 300;
 }

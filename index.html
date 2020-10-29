@@ -10,19 +10,36 @@
   <div id="score-div">
     <p>Score: <span id="score"> 0 </span></p>
   </div>
+
   <div class='container'>
   <div id="game-board">
     <canvas id="the-canvas" width="900" height="600"></canvas>
   </div>
+
+  <div id="messages" >
+    <h1 id="level-up">Level Up!</h1>
+  </div>
+
     <div class="game-intro">
       <div id="game-welcome" >
         <img id="welcome-image" src="../images/StarsCanvas.png" width="900" height="600" src="" alt="">
-    </div>
+        <h1>WELCOME</h1>
+        <p>Press Start button</p>
+      </div>
+
     <div id="bye-message" >
-      <img id="game-over" src="images/gameover.png" width="900" height="600" alt="welcome">
+      <h1 id="game-over">GAME OVER</h1>
+      <p id="game-over-score">FINAL SCORE<span id="score"> 0</p>
     </div>
+
+    <div id="control-keys">
+      <div id="instructions">
+        <img id="arrows" src="images/arrows.png" alt="">
+        <p>Use arrow keys to move</p>
+      </div>
         <button id="start-button">START</button>
-       
+        <button id="restart-button">PAUSE</button>
+      </div>
       </div>
       </div>
       <script src="js/spaceship.js"></script>

@@ -2,20 +2,65 @@ let currentGame;
 let currentPlayer;
 
 
+
+
 document.getElementById('game-board').style.display = 'none';
 document.getElementById('game-over').style.display = 'none';
+document.getElementById('game-over-score').style.display = 'none';
 document.getElementById('welcome-image').style.display = 'inline';
+document.getElementById('messages').style.display = 'none';
+
 const myCanvas = document.getElementById('the-canvas');
 const ctx = myCanvas.getContext('2d');
 document.getElementById('start-button').onclick = () => {
     startGame();
 }
+document.getElementById('restart-button').onclick = () => {
+    if (currentGame.gameRunning=true){
+        return currentGame.gameRunning = false
+        } else if (currentGame.gameRunning = false) {
+        return currentGame.gameRunning = true
+        }
+}
+
+/*
+const image = new Image ()
+image.src = "../images/StarsCanvas.png"
+const backgroundImage = {
+    image: image,
+    x: 0,
+    speed: -1,
+    move: function() {
+        this.x += this.speed;
+        this.x %= myCanvas.width;
+    },
+    draw: function () {
+        ctx.drawImage (this.image, this.x, 0);
+        ctx.drawImage(this.image, this.x + myCanvas.width, 0);
+    }
+}
+*/
+
 
 /*document.onkeydown = (e) => {
     let whereToGo = e.keyCode;
     currentGame.Spaceship.movePlayer(whereToGo);
 }*/
 
+function levelUp () {
+    if (currentGame.score > 3 && currentGame.score < 5) {
+        document.getElementById('messages').style.display = 'block';
+        setTimeout(clearMessages, 5000);
+        console.log('teste');
+       // backgroundImage.move ();
+        //backgroundImage.draw ();
+    }
+}
+
+
+function clearMessages () {
+    document.getElementById('messages').style.display = 'none';
+}
 
 function checkBoundaries () {
         if (currentPlayer.x >= 820) {
@@ -37,16 +82,16 @@ function checkBoundaries () {
 document.addEventListener ('keydown', e => {
     switch (e.keyCode) {
         case 38:
-            currentPlayer.speedY -= 1;
+            currentPlayer.speedY -= 0.5;
             break;
         case 40:    
-            currentPlayer.speedY += 1;
+            currentPlayer.speedY += 0.5;
             break;
         case 37:
-            currentPlayer.speedX -= 1;
+            currentPlayer.speedX -= 0.5;
             break;
         case 39:
-            currentPlayer.speedX += 1;
+            currentPlayer.speedX += 0.5;
             break; 
     }
 });
@@ -56,25 +101,32 @@ function resetGame () {
     this.car = {},
     this.obstacles = [];
     this.shots = [];
-    this.score = 0;
+    document.getElementById('game-board').style.display = 'inline';
     document.getElementById('score').innerHTML = currentGame.score;
+    document.getElementById('score').style.display = 'none';
+    document.getElementById('game-over-score').innerHTML = `FINAL SCORE: ${currentGame.score}`;
     document.getElementById('game-over').style.display = 'inline';
+    document.getElementById('game-over-score').style.display = 'inline';
 }
 
 function startGame() {
+    document.getElementById('score').innerHTML = 0;
     document.getElementById('game-board').style.display = 'block';
     document.getElementById('game-welcome').style.display = 'none';
     document.getElementById('game-over').style.display = 'none';
+    document.getElementById('game-over-score').style.display = 'none';
+    document.getElementById('score').style.display = 'inline';
     //Instantiate a new game of the game class
     currentGame = new Game();
-    if (!currentGame.gameRunning) {
     currentGame.gameRunning = true;
-    }
     //Instantiate a new car
     currentPlayer = new Spaceship();
     currentGame.Spaceship = currentPlayer;
     currentGame.Spaceship.drawPlayer();
     updateCanvas();
+    
+
+  
 }
 
 function bulletHit(obstacle, bullet) {
@@ -188,6 +240,7 @@ if (currentGame.obstacles.length > 0) {
                 currentGame.obstacles.splice(j,1);
                 currentGame.shots.splice(k,1);
                 currentGame.score++;
+                levelUp () 
                 document.getElementById('score').innerHTML = currentGame.score;
             }
         }
@@ -197,10 +250,8 @@ if (currentGame.obstacles.length > 0) {
             currentGame.gameRunning = false;
             resetGame ()
             obstaclesFrequency = 0;
-            currentGame.score = 0;
-            document.getElementById('score').innerHTML = 0;
             currentGame.obstacles = [];
-            document.getElementById('game-board').style.display = 'none';
+            
         }
 
     if (currentGame.obstacles2.length > 0) {
@@ -209,10 +260,8 @@ if (currentGame.obstacles.length > 0) {
             currentGame.gameRunning = false;
             resetGame ()
             obstacles2Frequency = 0;
-            currentGame.score = 0;
-            document.getElementById('score').innerHTML = 0;
             currentGame.obstacles2 = [];
-            document.getElementById('game-board').style.display = 'none';
+            
         }
        }
 
@@ -223,7 +272,7 @@ if (currentGame.obstacles.length > 0) {
                 currentGame.obstacles2.splice(j,1);
                 currentGame.shots.splice(k,1);
                 currentGame.score++;
-                document.getElementById('score').innerHTML = currentGame.score;
+                levelUp () 
             }
         }
         }
@@ -238,13 +287,6 @@ if (currentGame.obstacles.length > 0) {
     }
 }
 
-if (currentGame.score > 10) {
-    document.getElementById('game-board').style.display = 'none';
-    document.getElementById('welcome-image').style.display = 'inline';
-    document.getElementById('game-board').style.display = 'inline';
-    document.getElementById('welcome-image').style.display = 'none';
-
-}
     if (currentGame.gameRunning) { 
     requestAnimationFrame(updateCanvas);
     }
