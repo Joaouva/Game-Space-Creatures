@@ -3,6 +3,7 @@ class Game {
         this.car = {},
         this.obstacles = [];
         this.obstacles2 = [];
+        this.obstacles3 = [];
         this.shots = [];
         this.score = 0;
         this.gameRunning = false;

@@ -32,6 +32,23 @@ class Obstacle2 extends Obstacle {
     }
 }
 
+
+class Obstacle3 extends Obstacle {
+    constructor(x, y, width, height) {
+        super (x, y, width, height)
+        this.x = x;
+        this.y = y;
+        this.height = 50;
+        this.width = 50;
+        this.img1 ='../images/alienblue.png';
+    }
+    drawObstacle2(){
+        const obsImg1 = new Image();
+        obsImg1.src = this.img1;
+        ctx.drawImage(obsImg1,this.x, this.y -10, 50, 50);
+    }
+}
+
 /*
     ctx.drawImage(obsImg,170, this.y, 30, 30);
         ctx.drawImage(obsImg1,220, this.y, 30, 30);
