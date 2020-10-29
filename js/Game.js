@@ -18,9 +18,11 @@ class Bullets {
         this.width = width;
         this.height = height;
         this.speed = speed;
+        this.img = '../images/lasershot.png';
     }
     drawBullet (){
-        ctx.fillStyle = 'white';
-        ctx.fillRect (this.x, this.y, this.width, this.height);
+        const bulletImg = new Image ()
+        bulletImg.src = this.img;
+        ctx.drawImage(bulletImg,this.x, this.y -10, 15, 27);
     }
 }

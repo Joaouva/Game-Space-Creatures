@@ -11,7 +11,7 @@ const gameOverSound = new Audio ()
 gameOverSound.src = "../sounds/gameover.mp3";
 
 const gameIntroSound = new Audio ()
-gameIntroSound.src = "../sounds/";
+gameIntroSound.src = "../sounds/intro.mp3";
 
 const levelUpSound = new Audio ()
 levelUpSound.src = "../sounds/levelUp.mp3";
@@ -146,6 +146,7 @@ function resetGame () {
 }
 
 function startGame() {
+    gameIntroSound.play()
     document.getElementById('score').innerHTML = 0;
     document.getElementById('game-board').style.display = 'block';
     document.getElementById('game-welcome').style.display = 'none';
@@ -167,7 +168,7 @@ function startGame() {
 
 function bulletHit(obstacle, bullet) {
     return (bullet.x > obstacle.x - 100
-        && bullet.y + bullet.height > obstacle.y
+        && bullet.y + 20 > obstacle.y
         && bullet.y < obstacle.y + 100
         && bullet.x < obstacle.x + 100);
         
@@ -214,7 +215,7 @@ function updateCanvas() {
         
     }
     for(let i = 0; i<currentGame.shots.length; i++) { 
-       currentGame.shots[i].y -= 5;
+       currentGame.shots[i].y -= 2;
        currentGame.shots[i].drawBullet();
        if (currentGame.shots[i].y < 0) {
         currentGame.shots.splice(i,1);
