@@ -23,6 +23,6 @@ class Bullets {
     drawBullet (){
         const bulletImg = new Image ()
         bulletImg.src = this.img;
-        ctx.drawImage(bulletImg,this.x, this.y -10, 15, 27);
+        ctx.drawImage(bulletImg,this.x, this.y, 15, 27);
     }
 }

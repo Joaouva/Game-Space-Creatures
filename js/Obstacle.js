@@ -9,7 +9,7 @@ class Obstacle {
     drawObstacle() {
         const obsImg = new Image();
         obsImg.src = this.img;
-        ctx.drawImage(obsImg,this.x, this.y, 50, 50);
+        ctx.drawImage(obsImg,this.x, this.y, 70, 70);
     }
 
 }
@@ -26,7 +26,7 @@ class Obstacle2 extends Obstacle {
     drawObstacle1(){
         const obsImg1 = new Image();
         obsImg1.src = this.img1;
-        ctx.drawImage(obsImg1,this.x, this.y -10, 50, 50);
+        ctx.drawImage(obsImg1,this.x, this.y -10, 70, 70);
     }
 }
 
@@ -43,7 +43,7 @@ class Obstacle3 extends Obstacle {
     drawObstacle2(){
         const obsImg1 = new Image();
         obsImg1.src = this.img1;
-        ctx.drawImage(obsImg1,this.x, this.y -10, 50, 50);
+        ctx.drawImage(obsImg1,this.x, this.y -10, 70, 70);
     }
 }
 
