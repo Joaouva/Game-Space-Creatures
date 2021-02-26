@@ -233,7 +233,7 @@ if (currentGame.obstacles.length > 0) {
         currentGame.obstacles[h].y += 0.3;
         currentGame.obstacles[h].drawObstacle();
         
-        if (currentGame.obstacles[h].y > 50) {
+        if (currentGame.obstacles[h].y > 520) {
         currentGame.obstacles.splice(h,1);
         currentGame.gameRunning = false;
         resetGame ()
@@ -261,7 +261,7 @@ if (currentGame.obstacles.length > 0) {
         currentGame.obstacles2[i].y += 0.2;
         currentGame.obstacles2[i].drawObstacle1();
 
-        if (currentGame.obstacles2[i].y > 500) {
+        if (currentGame.obstacles2[i].y > 520) {
             currentGame.obstacles2.splice(i,1);
             currentGame.gameRunning = false;
             resetGame ()
