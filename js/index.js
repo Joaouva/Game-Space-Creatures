@@ -16,41 +16,35 @@ gameIntroSound.src = "../sounds/intro.mp3";
 const levelUpSound = new Audio ()
 levelUpSound.src = "../sounds/levelUp.mp3";
 
+
+
 document.getElementById('game-board').style.display = 'none';
 document.getElementById('game-over').style.display = 'none';
 document.getElementById('game-over-score').style.display = 'none';
 document.getElementById('welcome-image').style.display = 'inline';
 document.getElementById('messages').style.display = 'none';
+document.getElementById("restart-button").style.display = "none";
+document.getElementById("speed-button").style.display = "none";
 
 const myCanvas = document.getElementById('the-canvas');
 const ctx = myCanvas.getContext('2d');
 document.getElementById('start-button').onclick = () => {
     startGame();
 }
-document.getElementById('restart-button').onclick = () => {
-   currentGame.gameRunning = !currentGame.gameRunning;
-}
+document.getElementById("speed-button").onclick = () => {
+    updateCanvas();
 
-/*
-const image = new Image ()
-image.src = document.getElementById('game-board').style.display
-const backgroundImage = {
-    image: image,
-    x: 20,
-    speed: 50,
-    move: function() {
-        this.x += this.speed;
-        this.x %= 1200;
-    },
-    draw: function () {
-        ctx.drawImage (this.image, this.x, 0, myCanvas.width, myCanvas.height);
-        ctx.drawImage(this.image, this.x, 0, myCanvas.width, myCanvas.height);
-    }
-}
-/*document.onkeydown = (e) => {
-    let whereToGo = e.keyCode;
-    currentGame.Spaceship.movePlayer(whereToGo);
-}*/
+};
+
+document.getElementById("restart-button").onclick = () => {
+    restartGame();
+    shotsFrequency % 20 === 1;
+};
+
+
+
+
+
 
 function levelUp () {
     if (currentGame.score > 5 && currentGame.score < 8) {
@@ -110,27 +104,23 @@ document.addEventListener ('keydown', e => {
     }
 });
 
-/*
-document.addEventListener ('keyup', e => {
-    switch (e.keyCode) {
-        case 38:
-            currentPlayer.speedY += 0.6;
-            break;
-        case 40:    
-            currentPlayer.speedY -= 0.6;
-            break;
-        case 37:
-            currentPlayer.speedX += 1;
-            break;
-        case 39:
-            currentPlayer.speedX -= 1;
-            break; 
-    }
-});
-*/
+
+
+function restartGame() {
+    this.car = {};
+	this.obstacles = [];
+	this.shots = [];
+    ctx.clearRect(0, 0, 900, 600);
+    currentGame = new Game();
+    //Instantiate a new car
+    currentPlayer = new Spaceship();
+    currentGame.Spaceship = currentPlayer;
+    currentGame.Spaceship.drawPlayer();
+    document.getElementById("score").innerHTML = 0;
+}
 
 function resetGame () {
-    this.car = {},
+    this.car = {};
     this.obstacles = [];
     this.shots = [];
     gameOverSound.play();
@@ -140,6 +130,9 @@ function resetGame () {
     document.getElementById('game-over-score').innerHTML = `FINAL SCORE: ${currentGame.score}`;
     document.getElementById('game-over').style.display = 'inline';
     document.getElementById('game-over-score').style.display = 'inline';
+    document.getElementById("start-button").style.display = "inline";
+    document.getElementById("restart-button").style.display = "none";
+    document.getElementById("speed-button").style.display = "none";
 }
 
 function startGame() {
@@ -150,9 +143,11 @@ function startGame() {
     document.getElementById('game-over').style.display = 'none';
     document.getElementById('game-over-score').style.display = 'none';
     document.getElementById('score').style.display = 'inline';
+    document.getElementById("speed-button").style.display = "inline";
+    document.getElementById("start-button").style.display = "none";
+    document.getElementById("restart-button").style.display = "inline";
     //Instantiate a new game of the game class
     currentGame = new Game();
-    currentGame.gameRunning = true;
     //Instantiate a new car
     currentPlayer = new Spaceship();
     currentGame.Spaceship = currentPlayer;
@@ -165,14 +160,10 @@ function startGame() {
 
 function bulletHit(obstacle, bullet) {
 
-    return (!(bullet.x > obstacle.x + obstacle.width ||
+    return (!(bullet.x + bullet.width > obstacle.x + obstacle.width ||
     bullet.x < obstacle.x ||
     bullet.y > obstacle.y + obstacle.height ||
     bullet.y < obstacle.y))
-
-   /* return (bullet.x > obstacle.x - obstacle.width
-        && bullet.y + bullet.height > obstacle.y
-        && bullet.y < obstacle.y + obstacle.height)  */
 }
         
 
@@ -187,18 +178,18 @@ function detectCollision(obstacle) {;
         && currentPlayer.x < obstacle.x + obstacle.width);
 }
  
+
 let shotsFrequency = 0;
 let obstaclesFrequency = 0;
 let obstacles2Frequency = 0;
 let obstacles3Frequency = 0;
 
-
 function updateCanvas() {
     ctx.clearRect(0, 0, 900, 600);
     currentGame.Spaceship.drawPlayer();
     currentPlayer.newPos();
-    checkBoundaries ();
-
+    checkBoundaries();
+    
    
     //Draw bullets
     shotsFrequency++

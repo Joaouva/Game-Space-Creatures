@@ -100,7 +100,7 @@ body button {
   box-shadow: 0px 10px 10px #aaa, inset 0px 2px 3px #fff;
 }
 
-#restart-button {
+#speed-button {
   background-image: -webkit-linear-gradient(top, black, black); 
   background-image: -moz-linear-gradient(top, black, black); 
   background-image: -ms-linear-gradient(top, black, black); 

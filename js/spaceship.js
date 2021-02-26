@@ -34,35 +34,7 @@ class Spaceship {
       return this.y + this.height;
     }
 
-    
-    /*movePlayer(keyCode){
-      //console.log('x', this.x);
-     // console.log('y', this.y);
-      ctx.clearRect(this.x, this.y, this.width, this.height);
-      switch(keyCode){
-        case 37:
-        //Making sure car doesn't go off the road
-        if(this.x > 20){
-          this.x -= 10;
-        }
-          break;
-        case 39:
-        //Making sure car doesn't go off the road
-        if (this.x < 790 ){
-          this.x += 10;
-        }
-          break;
-        case 38:
-        if (this.y > 20) {
-          this.y -= 10;
-        }
-        break;
-        case 40:
-          if (this.y < 520) {
-            this.y += 10;
-          }
-      }
-    }*/
+  
   }
 
   
