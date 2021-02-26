@@ -185,7 +185,7 @@ let obstacles2Frequency = 0;
 let obstacles3Frequency = 0;
 
 function updateCanvas() {
-    ctx.clearRect(0, 0, 900, 500);
+    ctx.clearRect(0, 0, 900, 600);
     currentGame.Spaceship.drawPlayer();
     currentPlayer.newPos();
     checkBoundaries();
@@ -233,7 +233,7 @@ if (currentGame.obstacles.length > 0) {
         currentGame.obstacles[h].y += 0.3;
         currentGame.obstacles[h].drawObstacle();
         
-        if (currentGame.obstacles[h].y > 500) {
+        if (currentGame.obstacles[h].y > 50) {
         currentGame.obstacles.splice(h,1);
         currentGame.gameRunning = false;
         resetGame ()
